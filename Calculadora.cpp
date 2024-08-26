@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include <algorithm> 
+#include <algorithm>
+#include <chrono> // Include the chrono library
 
 std::string suma(const std::string& num1, const std::string& num2) {
     std::string resultado = "";  
@@ -73,7 +74,7 @@ std::string multiplica(const std::string& num1, const std::string& num2) {
 
 std::string divide(const std::string& num1, const std::string& num2) {
     if (num2 == "0") {
-        return "Error: Divisi髇 por cero no permitida";
+        return "Error: Divisi贸n por cero no permitida";
     }
 
     if (num1 == "0" || num1 < num2) {
@@ -115,13 +116,13 @@ int main() {
     char opcion;
 
     while (true) {
-        std::cout << "\nSeleccione la operaci髇 que desea realizar:" << std::endl;
+        std::cout << "\nSeleccione la operaci贸n que desea realizar:" << std::endl;
         std::cout << "1. Suma" << std::endl;
         std::cout << "2. Resta" << std::endl;
-        std::cout << "3. Multiplicaci髇" << std::endl;
-        std::cout << "4. Divisi髇" << std::endl;
+        std::cout << "3. Multiplicaci贸n" << std::endl;
+        std::cout << "4. Divisi贸n" << std::endl;
         std::cout << "5. Salir" << std::endl;
-        std::cout << "Ingrese el n鷐ero de la operaci髇: ";
+        std::cout << "Ingrese el n煤mero de la operaci贸n: ";
         std::cin >> opcion;
 
         if (opcion == '5') {
@@ -130,27 +131,32 @@ int main() {
         }
 
         if (opcion >= '1' && opcion <= '4') {
-            std::cout << "Ingrese el primer n鷐ero: ";
+            std::cout << "Ingrese el primer n煤mero: ";
             std::cin >> num1;
-            std::cout << "Ingrese el segundo n鷐ero: ";
+            std::cout << "Ingrese el segundo n煤mero: ";
             std::cin >> num2;
+
+            auto start = std::chrono::high_resolution_clock::now();  // Start time measurement
 
             if (opcion == '1') {
                 std::cout << "Resultado de la suma: " << suma(num1, num2) << std::endl;
             } else if (opcion == '2') {
-                
                 if (num1 >= num2) {
                     std::cout << "Resultado de la resta: " << resta(num1, num2) << std::endl;
                 } else {
                     std::cout << "Resultado de la resta: -" << resta(num2, num1) << std::endl;
                 }
             } else if (opcion == '3') {
-                std::cout << "Resultado de la multiplicaci髇: " << multiplica(num1, num2) << std::endl;
+                std::cout << "Resultado de la multiplicaci贸n: " << multiplica(num1, num2) << std::endl;
             } else if (opcion == '4') {
-                std::cout << "Resultado de la divisi髇: " << divide(num1, num2) << std::endl;
+                std::cout << "Resultado de la divisi贸n: " << divide(num1, num2) << std::endl;
             }
+
+            auto end = std::chrono::high_resolution_clock::now();  // End time measurement
+            std::chrono::duration<double> duration = end - start;
+            std::cout << "Tiempo de ejecuci贸n: " << duration.count() << " segundos" << std::endl;  // Display the duration
         } else {
-            std::cout << "Opci髇 no v醠ida. Por favor, intente de nuevo." << std::endl;
+            std::cout << "Opci贸n no v谩lida. Por favor, intente de nuevo." << std::endl;
         }
     }
 
